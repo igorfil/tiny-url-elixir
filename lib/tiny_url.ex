@@ -6,13 +6,17 @@ defmodule TinyUrl do
   @doc """
   Hello world.
 
-  ## Examples
-
-      iex> TinyUrl.hello()
-      :world
-
   """
-  def hello do
-    :world
+  def tiny(url) do
+    cond do
+      url == "" ->
+        ""
+
+      url != "" ->
+        :crypto.hash(:sha512, url)
+        |> Base.encode16()
+        |> String.downcase()
+        |> String.slice(0, 10)
+    end
   end
 end
